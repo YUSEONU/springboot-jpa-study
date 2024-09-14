@@ -8,10 +8,18 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-@Transactional(readOnly = true)
+@Transactional(readOnly = true) //데이터의 변경이 없는 읽기 전용 메서드에 사용, 영속성 컨텍스트를 플러시 하지 않으므로 약간의 성능 향상
 public class MemberService {
-    @Autowired
-    MemberRepository memberRepository;
+    /** 필드 주입 @Autowired
+     * MemberRepository memberRepository;
+     */
+    //생성자 주입
+    private final MemberRepository memberRepository;
+
+    public MemberService(MemberRepository memberRepository) {
+        this.memberRepository = memberRepository;
+    }
+
     /**
      * 회원가입
      */
